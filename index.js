@@ -14,7 +14,7 @@ app.use(express.json());
 // routes import 
 
     // category 
-    const categoryRoutes = require('./routes/categoryRoutes');
+    const categoryRoutes = require('./routes/category.routes');
 
 
 // middleware 
@@ -22,13 +22,13 @@ app.use(express.json());
     app.use('/api/categories', categoryRoutes);
 
 
-connectToDb().then(() => {
-    app.listen(port, () => {
-        console.log(`TEKLIY Server is running on port: ${port}`);
-    });
+
+
+app.get("/", (req, res) => {
+  res.send("E-commerce server running 🚀");
 });
 
-// Default Route
-app.get('/', (req, res) => {
-    res.send('ALHAMDULILLAH++ TEKLIY Backend Server is Running...');
+
+app.listen(port, () => {
+  console.log(`🚀 Server running on port ${port}`);
 });

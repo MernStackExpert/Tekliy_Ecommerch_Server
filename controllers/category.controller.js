@@ -1,5 +1,4 @@
-const { connectDB } = require("../config/db");
-const { ObjectId } = require("mongodb");
+const { connectDB, ObjectId } = require("../config/db");
 
 const collection = async () => {
   const db = await connectDB();
@@ -12,6 +11,7 @@ const getCategories = async (req, res) => {
     const categories = await categoryCollection.find().toArray();
     res.status(200).json(categories);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Error fetching categories", error });
   }
 };
