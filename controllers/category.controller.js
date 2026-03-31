@@ -15,4 +15,31 @@ const getCategories = async (req, res) => {
   }
 };
 
-module.exports = { getCategories };
+const addCategory = async (req, res) => {
+  try {
+    const { name, icon } = req.body;
+    
+    if (!name) {
+      return res.status(400).json({ message: "Category name is required" });
+    }
+
+    const categoryCollection = await collection();
+    
+    const newCategory = {
+      name,
+      slug: name.toLowerCase().replace(/ /g, '-'),
+      icon: icon || null,
+      createdAt: new Date()
+    };
+
+    const result = await categoryCollection.insertOne(newCategory);
+    res.status(201).json({ 
+      message: "Category added successfully", 
+      insertedId: result.insertedId 
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding category", error });
+  }
+};
+
+module.exports = { getCategories, addCategory };
