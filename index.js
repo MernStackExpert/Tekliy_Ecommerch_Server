@@ -16,10 +16,17 @@ app.use(express.json());
     // category 
     const categoryRoutes = require('./routes/category.routes');
 
+    // Products
+    const productRoutes = require("./routes/product.routes");
 
-// middleware 
+
+// API
+
     // category 
     app.use('/api/categories', categoryRoutes);
+
+    // Products 
+    app.use("/api/products" , productRoutes)
 
 
 
