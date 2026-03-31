@@ -10,6 +10,18 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+
+// routes import 
+
+    // category 
+    const categoryRoutes = require('./routes/categoryRoutes');
+
+
+// middleware 
+    // category 
+    app.use('/api/categories', categoryRoutes);
+
+
 connectToDb().then(() => {
     app.listen(port, () => {
         console.log(`TEKLIY Server is running on port: ${port}`);
