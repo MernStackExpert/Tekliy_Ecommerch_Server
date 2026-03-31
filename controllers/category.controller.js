@@ -1,4 +1,5 @@
 const { connectDB } = require("../config/db");
+const { ObjectId } = require("mongodb");
 
 const collection = async () => {
   const db = await connectDB();
@@ -42,4 +43,52 @@ const addCategory = async (req, res) => {
   }
 };
 
-module.exports = { getCategories, addCategory };
+const updateCategory = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, icon } = req.body;
+    
+    const categoryCollection = await collection();
+    
+    const updateDoc = {
+      $set: {
+        ...(name && { name, slug: name.toLowerCase().replace(/ /g, '-') }),
+        ...(icon && { icon }),
+        updatedAt: new Date()
+      }
+    };
+
+    const result = await categoryCollection.updateOne(
+      { _id: new ObjectId(id) },
+      updateDoc
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+
+    res.status(200).json({ message: "Category updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating category", error });
+  }
+};
+
+const deleteCategory = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const categoryCollection = await collection();
+    
+    const result = await categoryCollection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+
+    res.status(200).json({ message: "Category deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting category", error });
+  }
+};
+
+module.exports = { getCategories, addCategory, updateCategory, deleteCategory };
+
