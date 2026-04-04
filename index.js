@@ -22,6 +22,15 @@ app.use(express.json());
     // Orders 
     const orderRoutes = require("./routes/order.routes")
 
+    // Admin  Auth
+    const adminRoutes = require('./routes/admin.routes.js');
+
+    // Banner 
+    const bannerRoutes = require('./routes/banner.routes');
+
+    // Contact 
+    const contactRoutes = require('./routes/contact.routes');
+
 
 // API
 
@@ -33,6 +42,15 @@ app.use(express.json());
 
     // Orders 
     app.use("/api/orders" , orderRoutes)
+
+    // Admin Auth 
+    app.use('/api/admin', adminRoutes);
+
+    // Banner 
+    app.use('/api/banners', bannerRoutes);
+
+    // Contact 
+    app.use('/api/contacts', contactRoutes);
 
 
 
