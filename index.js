@@ -19,6 +19,9 @@ app.use(express.json());
     // Products
     const productRoutes = require("./routes/product.routes");
 
+    // Orders 
+    const orderRoutes = require("./routes/order.routes")
+
 
 // API
 
@@ -27,6 +30,9 @@ app.use(express.json());
 
     // Products 
     app.use("/api/products" , productRoutes)
+
+    // Orders 
+    app.use("/api/orders" , orderRoutes)
 
 
 
