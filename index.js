@@ -31,6 +31,9 @@ app.use(express.json());
     // Contact 
     const contactRoutes = require('./routes/contact.routes');
 
+    // Admin Stats 
+    const statsRoutes = require('./routes/stats.routes');
+
 
 // API
 
@@ -51,6 +54,10 @@ app.use(express.json());
 
     // Contact 
     app.use('/api/contacts', contactRoutes);
+
+    // Admin Stats 
+    app.use('/api/stats', statsRoutes);
+
 
 
 
